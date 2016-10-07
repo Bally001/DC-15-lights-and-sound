@@ -121,7 +121,7 @@ void magOff() {
 }
 
 void weaponFire() {
-  ammoCount = ammoCount - 1;   //reduce ammo available by 1
+  ammoCount = ammoCount - .25;   //reduce ammo available by 1
 
   LEDBarDisplay(ammoCount);   // reduce the number of LEDs turned on
   
@@ -150,15 +150,29 @@ void ammo_reload() {
 
 void ammoLow()  {
  if (millis() - lastFlash >= flashInterval)  {
- 
-   if (lowLed) {
+   if (ammoCount >1) {
+    if (lowLed) {
+     lowLed = false;
+     lc.setLed(0,0,0,true);
+     lc.setLed(0,0,1,true); 
+    }
+    else  {
+     lowLed = true;
+     lc.setLed (0,0,0,false);
+     lc.setLed(0,0,1,false);
+    }
+   }
+   if (ammoCount <= 1) {
+    if (lowLed) {
     lowLed = false;
     lc.setLed(0,0,0,true); 
-   }
-   else  {
-    lowLed = true;
-    lc.setLed (0,0,0,false);
-   }
+    }
+    else  {
+     lowLed = true;
+     lc.setLed (0,0,0,false);
+     }
+    }
+   
    lastFlash = millis();
   }
     
