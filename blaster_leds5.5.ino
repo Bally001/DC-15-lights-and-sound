@@ -107,6 +107,7 @@ void loop() {
 }
 
 void powerup() {
+  tmrpcm.play("powerup.wav");   // powering up audio
   delay(30);
   lc.clearDisplay(0);
 
@@ -118,7 +119,7 @@ void powerup() {
 
   ammoCount = 10;   // start with full ammo
 
-  tmrpcm.play("powerup.wav");  // online audio
+  tmrpcm.play("online.wav");  // online audio
 
   Serial.println("powerup complete");
 }
@@ -143,14 +144,9 @@ void weaponFire() {
   }
 
 void emptyAmmo() {
-  // sound to indicate out of ammo
+  tmrpcm.play("empty.wav");  // sound to indicate out of ammo
 
   Serial.println("out_of_ammo");
-  }
-
-void ammo_reload() {
-  ammoCount=10;
-  Serial.println("reload");
   }
 
 void ammoLow()  {
